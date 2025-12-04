@@ -85,6 +85,7 @@ if __name__ == "__main__":
     parser.add_argument("--threads", default=2, type=int)
     parser.add_argument("--weight_decay", default=5e-4, type=float)
     parser.add_argument("--width_factor", default=8, type=int)
+    parser.add_argument("--output_dir", default="./results", type=str)
 
     # NEW: seed untuk multi-run (3 seed dsb.)
     parser.add_argument("--seed", default=42, type=int)
@@ -99,15 +100,23 @@ if __name__ == "__main__":
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_name = make_run_name(args)
 
-    results_root = "results"
+    # results_root = "results"
+    # epochs_dir = os.path.join(results_root, "epochs")
+    # ckpt_dir = os.path.join(results_root, "checkpoints")
+    # summary_path = os.path.join(results_root, "summary.csv")
+
+    # os.makedirs(results_root, exist_ok=True)
+    # os.makedirs(epochs_dir, exist_ok=True)
+    # os.makedirs(ckpt_dir, exist_ok=True)
+
+    # untuk run kaggle
+    results_root = args.output_dir
     epochs_dir = os.path.join(results_root, "epochs")
     ckpt_dir = os.path.join(results_root, "checkpoints")
     summary_path = os.path.join(results_root, "summary.csv")
 
-    os.makedirs(results_root, exist_ok=True)
     os.makedirs(epochs_dir, exist_ok=True)
     os.makedirs(ckpt_dir, exist_ok=True)
-
     epoch_csv_path = os.path.join(epochs_dir, f"{run_name}_{timestamp}.csv")
     ckpt_path = os.path.join(ckpt_dir, f"{run_name}_best.pt")
 
