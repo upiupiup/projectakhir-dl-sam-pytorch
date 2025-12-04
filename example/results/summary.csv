@@ -1,0 +1,2 @@
+timestamp,run_name,dataset,model,optimizer,rho,adaptive,learning_rate,weight_decay,batch_size,epochs,seed,best_val_acc,best_val_epoch,train_acc_at_best,final_val_acc,final_train_acc,runtime_sec
+20251205-001351,cifar10_resnet18_sgd_lr0.1_wd0.0005_bs128_seed42,cifar10,resnet18,sgd,0.05,False,0.1,0.0005,128,1,42,0.4345,0,0.26742,0.4345,0.26742,580.8061904907227

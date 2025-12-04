@@ -7,7 +7,8 @@ from torch.utils.data import ConcatDataset
 
 class Svhn:
     def __init__(self, batch_size, threads):
-        mean, std = self._get_statistics()
+        mean = (0.4377, 0.4438, 0.4728)
+        std = (0.1980, 0.2010, 0.1970)
 
         train_transform = transforms.Compose(
             [
@@ -24,7 +25,6 @@ class Svhn:
             ]
         )
 
-        # gunakan train + extra sebagai training data (sesuai paper)
         train_set = torchvision.datasets.SVHN(
             root="./data_svhn",
             split="train",
@@ -47,31 +47,22 @@ class Svhn:
         full_train = ConcatDataset([train_set, extra_set])
 
         self.train = DataLoader(
-            full_train, batch_size=batch_size, shuffle=True, num_workers=threads
+            full_train,  # ✅ pakai gabungan train + extra
+            batch_size=batch_size,
+            shuffle=True,
+            num_workers=0,  # Windows-friendly
+            pin_memory=False,
         )
+
         self.test = DataLoader(
-            test_set, batch_size=batch_size, shuffle=False, num_workers=threads
+            test_set,
+            batch_size=batch_size,
+            shuffle=False,
+            num_workers=0,
+            pin_memory=False,
         )
 
         self.classes = tuple(str(i) for i in range(10))
 
     def _get_statistics(self):
-        # hitung mean/std dari train + extra (tanpa augment)
-        raw_train = torchvision.datasets.SVHN(
-            root="./data_svhn",
-            split="train",
-            download=True,
-            transform=transforms.ToTensor(),
-        )
-        raw_extra = torchvision.datasets.SVHN(
-            root="./data_svhn",
-            split="extra",
-            download=True,
-            transform=transforms.ToTensor(),
-        )
-
-        merged = ConcatDataset([raw_train, raw_extra])
-        loader = DataLoader(merged, batch_size=512)
-
-        data = torch.cat([d[0] for d in loader])
-        return data.mean(dim=[0, 2, 3]), data.std(dim=[0, 2, 3])
+        pass
