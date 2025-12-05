@@ -2,7 +2,6 @@ import torch
 import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-from torch.utils.data import ConcatDataset
 
 
 class Svhn:
@@ -31,12 +30,7 @@ class Svhn:
             download=True,
             transform=train_transform,
         )
-        extra_set = torchvision.datasets.SVHN(
-            root="./data_svhn",
-            split="extra",
-            download=True,
-            transform=train_transform,
-        )
+
         test_set = torchvision.datasets.SVHN(
             root="./data_svhn",
             split="test",
@@ -44,13 +38,11 @@ class Svhn:
             transform=test_transform,
         )
 
-        full_train = ConcatDataset([train_set, extra_set])
-
         self.train = DataLoader(
-            full_train,  # ✅ pakai gabungan train + extra
+            train_set,
             batch_size=batch_size,
             shuffle=True,
-            num_workers=0,  # Windows-friendly
+            num_workers=0,
             pin_memory=False,
         )
 
