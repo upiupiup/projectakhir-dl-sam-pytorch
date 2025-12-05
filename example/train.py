@@ -20,7 +20,10 @@ from utility.bypass_bn import enable_running_stats, disable_running_stats
 
 import sys
 
-sys.path.append("..")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
 from sam import SAM
 
 
