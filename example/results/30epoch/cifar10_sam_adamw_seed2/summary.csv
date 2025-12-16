@@ -1,0 +1,2 @@
+timestamp,run_name,dataset,model,optimizer,rho,adaptive,learning_rate,weight_decay,batch_size,epochs,seed,best_val_acc,best_val_epoch,train_acc_at_best,final_val_acc,final_train_acc,runtime_sec
+20251213-053657,cifar10_resnet18_sam_adamw_rho0.05_adaptive0_lr0.1_wd0.0005_bs512_seed2,cifar10,resnet18,sam_adamw,0.05,False,0.1,0.0005,512,30,2,0.7863,28,0.77808,0.7836,0.77732,2958.6712639331818
